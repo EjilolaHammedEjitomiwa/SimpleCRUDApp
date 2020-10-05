@@ -20,4 +20,7 @@ interface SubscriberDAO {
 
     @Query("SELECT * FROM Subscriber_data_table")
      fun getAllSubscriber(): List<Subscriber>
+
+    @Query("SELECT * FROM Subscriber_data_table WHERE subscriber_name LIKE :queryText")
+    fun searchSubscriber(queryText:String): List<Subscriber>
 }
