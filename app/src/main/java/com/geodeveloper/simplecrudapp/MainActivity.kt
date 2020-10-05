@@ -19,6 +19,7 @@ class MainActivity : AppCompatActivity() {
     var dao:SubscriberDAO? = null
     var saveOrUpdateTag = "save"
     var clearOrDeleteTag = "clear"
+    var subcriberID = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -38,8 +39,12 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this,"Empty field",Toast.LENGTH_LONG).show()
             }
             else{
+                main_emailEditext.text.clear()
+                main_nameEditext.text.clear()
                 if(saveOrUpdateTag == "save"){
                    saveSubscriber().execute(Subscriber(0,name,email))
+                }else{
+                    updateSubscriber().execute(Subscriber(subcriberID,name,email))
                 }
             }
         }
@@ -62,7 +67,18 @@ class MainActivity : AppCompatActivity() {
             showAllSubscribers().execute()
         }
     }
-
+    inner class updateSubscriber():AsyncTask<Subscriber,Void,Void>(){
+        override fun doInBackground(vararg p0: Subscriber?): Void ?{
+            dao!!.updateSubscriber(p0[0]!!)
+            return null
+        }
+        override fun onPostExecute(result: Void?) {
+            super.onPostExecute(result)
+            main_saveBtn.text = "Save"
+            saveOrUpdateTag = "save"
+            showAllSubscribers().execute()
+        }
+    }
     inner class showAllSubscribers():AsyncTask<Void,Void,Void>(){
         override fun doInBackground(vararg p0: Void?): Void? {
             val all =  dao!!.getAllSubscriber()
@@ -84,7 +100,6 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
-
     inner class clearAllSubscribers():AsyncTask<Void,Void,Void>(){
         override fun doInBackground(vararg p0: Void?): Void? {
             dao!!.deleteAll()
@@ -96,5 +111,14 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
-
+    inner class deleteSubscriber():AsyncTask<Subscriber,Void,Void>(){
+        override fun doInBackground(vararg p0: Subscriber?): Void ?{
+            dao!!.deleteSubscriber(p0[0]!!)
+            return null
+        }
+        override fun onPostExecute(result: Void?) {
+            super.onPostExecute(result)
+            showAllSubscribers().execute()
+        }
+    }
 }
