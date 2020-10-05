@@ -9,11 +9,13 @@
     tools:context=".MainActivity">
 
     <EditText
+        android:id="@+id/main_nameEditext"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Email" />
+        android:hint="Name" />
 
     <EditText
+        android:id="@+id/main_emailEditext"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Email" />
@@ -26,12 +28,14 @@
         android:layout_marginBottom="10dp">
 
         <Button
+            android:id="@+id/main_saveBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"
             android:text="Save" />
 
         <Button
+            android:id="@+id/main_clearAllBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Clear All" />
@@ -39,6 +43,7 @@
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/main_recyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
